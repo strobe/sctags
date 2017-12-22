@@ -1,8 +1,12 @@
 name := "sctags"
 
-scalaVersion := "2.12.3"
+scalaVersion in ThisBuild:= "2.12.4"
 
-version := "1.0"
+crossScalaVersions := Seq("2.11.12", "2.12.4", "2.13.0-M2")
+
+version := "1.0.1"
+
+organization := "cc.evgeniy"
 
 scalacOptions ++= Seq("-feature","-deprecation")
 
@@ -62,3 +66,10 @@ assemblyOption in assembly := (assemblyOption in assembly).value.copy(prependShe
     """  exec java -Xbootclasspath/"a:$SCALA_LIB/scala-compiler.jar:$SCALA_LIB/scala-library.jar:$SCALA_LIB/scala-reflect.jar" -jar "$CMD" ${ARGS[@]}""",
     """fi"""
   )))
+
+
+bintrayRepository := "sbt-plugins"
+
+bintrayReleaseOnPublish in ThisBuild := false
+
+licenses += ("Apache-2.0", url("http://apache.org/licenses/LICENSE-2.0"))

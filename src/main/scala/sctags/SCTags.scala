@@ -4,7 +4,7 @@ import scala.tools.nsc.{Settings, Global}
 import scala.tools.nsc.reporters.StoreReporter
 
 import scala.collection.mutable.ListBuffer
-
+import scala.util.{Try,Success,Failure}
 
 import java.io.File
 import java.io.PrintStream
@@ -50,7 +50,15 @@ object SCTags extends Parsing with TagGeneration
     }
 
     if (files.nonEmpty) {
-      val tags = files.map(f => (f.getPath, generateTags(parse(f))))
+      val tags = files.map(f => {
+        val parsed = Try(parse(f))
+        parsed match {
+          case Failure(ex) =>
+            System.err.println(s"parsing issue: ${ex.getMessage} \n ${ex.printStackTrace}")
+          case _ =>
+        }
+        (f.getPath, parsed)
+      }).filter(_._2.isSuccess).map(v => (v._1, generateTags(v._2.get)))
       val output = outputFile match {
         case "-" => Console.out
         case "tags" if etags =>  new PrintStream("TAGS")

@@ -1,8 +1,26 @@
+This is a patched version of SCTags for another experemantal project.
+
+
+About
+-----
+
 SCTags is ctags and etags extractor for Scala language. It will fallback
 to ctags if language other than Scala was forced
 
 Usage
 -----
+
+### As library
+
+Add following to your build.sbt
+
+```
+libraryDependencies += "cc.evgeniy" %% "sctags" % "1.0.1"
+
+resolvers += Resolver.bintrayRepo("strobe", "sbt-plugins")
+```
+
+### As CLI
 
 ```
 sctags [-f|-o file] [-R|--recurse] [--list-languages] [--version] <files>
@@ -127,6 +145,6 @@ It is simplified and extended to support scope tracking.
 
 Released under the Apache 2.0 License.
 
-Copyright 2008 Geoff Reedy 
+Copyright 2008 Geoff Reedy
 
 Copyright 2015 Luben Karavelov
