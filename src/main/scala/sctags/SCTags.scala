@@ -18,13 +18,14 @@ object SCTags extends Parsing with TagGeneration
   var recurse = false;
   var etags = false
 
-  def parseOpt(args:List[String]): List[String] =
+  def parseOpt(args:List[String]): List[String] = {
     args match {
       case ("-f" |"-o")         :: file :: rest => outputFile = file; parseOpt(rest)
       case ("-R" |"--recurse" ) :: rest => recurse = true;            parseOpt(rest)
       case ("-e" |"--etags"   ) :: rest => etags = true;              parseOpt(rest)
       case files  => files
     }
+  }
 
   def error(str: String) = System.err.println("Error: " + str);
   val settings = new Settings(error);
@@ -33,6 +34,7 @@ object SCTags extends Parsing with TagGeneration
 
 
   def run(fnames: Seq[String]) {
+    //System.err.println(s"sctags fnames: ${fnames.toString}")
     val files = new ListBuffer[File]
     fnames foreach { fname =>
       val file = new File(fname)
@@ -54,7 +56,7 @@ object SCTags extends Parsing with TagGeneration
         val parsed = Try(parse(f))
         parsed match {
           case Failure(ex) =>
-            System.err.println(s"parsing issue: ${ex.getMessage} \n ${ex.printStackTrace}")
+            System.err.println(s"parsing issue: ${ex.getMessage} at file ${f.getPath} \n ${ex.getStackTrace.head.toString}")
           case _ =>
         }
         (f.getPath, parsed)
@@ -74,6 +76,7 @@ object SCTags extends Parsing with TagGeneration
   }
 
   def main(args: Array[String]): Unit = {
+    //System.err.println(s"sctags args: ${args.toList.toString}")
     val fnames = parseOpt(args.toList)
     run(fnames)
   }
