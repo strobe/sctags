@@ -1,4 +1,4 @@
-package sctags
+package cc.evgeniy.sctags
 
 import scala.collection.mutable.StringBuilder
 

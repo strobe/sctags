@@ -2,7 +2,7 @@ name := "sctags"
 
 scalaVersion in ThisBuild:= "2.12.4"
 
-crossScalaVersions := Seq("2.11.12", "2.12.4", "2.13.0-M2")
+crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.4", "2.13.0-M2")
 
 version := "1.0.1"
 
@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
 
 assemblyJarName in assembly := name.value
 
-mainClass in assembly := Some("sctags.SCTags")
+mainClass in assembly := Some("cc.evgeniy.sctags.SCTags")
 
 assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false)
 

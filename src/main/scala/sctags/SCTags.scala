@@ -1,4 +1,4 @@
-package sctags
+package cc.evgeniy.sctags
 
 import scala.tools.nsc.{Settings, Global}
 import scala.tools.nsc.reporters.StoreReporter
